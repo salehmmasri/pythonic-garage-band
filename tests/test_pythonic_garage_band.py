@@ -1,24 +1,36 @@
-from pythonic_garage_band.pythonic_garage_band import Band
+from pythonic_garage_band import __version__
+from pythonic_garage_band.pythonic_garage_band import Band, Musician, Guitarist, Drummer, Bassist
 import pytest
-
-@pytest.fixture
-def prep_data():
-    aziz = Band.Guitarist('aziz') # preparing data
-    saleh = Band.Drummer('saleh')
-    emad = Band.Bassist('eamad')
-    return {'aziz':aziz,'saleh':saleh,'emad':emad}
-
-def test_play_solo(prep_data):
-    expected = "Play Guitar"
-    actual = prep_data['aziz'].play_solo()
+def test_version():
+    assert __version__ == '0.1.0'
+aziz = Guitarist('Aziz') 
+saleh = Drummer('Saleh')
+emad = Bassist('Emad')    
+tarbanin = Band('tarbanin')
+tarbanin.add_members(aziz)
+tarbanin.add_members(saleh)
+tarbanin.add_members(emad)
+def test_to_list():
+    expected = [aziz,saleh,emad]
+    actual = tarbanin.to_list()
+    assert  actual == expected
+def test_play_solo():
+    expected = 'Saleh Play solo'
+    actual = saleh.play_solo()
     assert actual == expected
-
-def test_get_instrument(prep_data):
+def test_play_solos():
+    expected = "Aziz Play solo\nSaleh Play solo\nEmad Play solo\n"
+    actual = tarbanin.play_solos()
+    assert actual == expected
+def test_str():
+    expected = "Guitarist <Aziz>"
+    actual = aziz.__str__()
+    assert actual == expected
+def test_rper():
+    expected = " 'Emad' "
+    actual = emad.__repr__()
+    assert actual == expected
+def test_get_instrument():
     expected = "Drummer"
-    actual = prep_data['saleh'].get_instrument()
-    assert actual == expected
-
-def test_str(prep_data):
-    expected = "Drummer <saleh>"
-    actual = prep_data['saleh'].__str__()
+    actual = saleh.get_instrument()
     assert actual == expected
