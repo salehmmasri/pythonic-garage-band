@@ -13,8 +13,14 @@ class Band():
         for i in Band.members:
             result+= f'{i.play_solo()}\n'
         return result
-    def to_list(self):
-        return Band.members
+    @classmethod
+    def to_list(cls):
+        return cls.members
+    # def __str__(self):
+    #     return f"band name {{{self.name}}}"
+    
+    def __repr__(self):
+        return f" {{{self.name}}} "
 class Musician():
     def __init__(self,name):
         self.name = name
@@ -55,7 +61,9 @@ class Drummer(Musician):
         return 'Drummer'
 
 if __name__ == "__main__":
-    # aziz = Guitarist('Aziz')
-    # saleh=Drummer('Saleh')
-    # emad = Bassist('Emad')
-    # print()
+    aziz = Guitarist('Aziz')
+    saleh=Drummer('Saleh')
+    emad = Bassist('Emad')
+    band=Band('saleh')
+    print(band)
+    
